@@ -31,7 +31,7 @@ jobs:
       run: dotnet build ./demo-web-app/demo-web-app.sln --configuration Release --no-restore
       
     - name: Publish
-      run: dotnet publish ./demo-web-app/demo-web-app.sln --configuration Release --no-build
+      run: dotnet publish ./demo-web-app/demo-web-app.sln --configuration Release --no-build --output ./publish
       
     # Deploy
     - name: Deploy to azure
