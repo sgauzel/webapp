@@ -39,5 +39,5 @@ jobs:
       with:
         app-name: ${{ env.AZURE_WEBAPP_NAME }}
         publish-profile: ${{ secrets.PUBLISH_SECRET }}
-        package: ./demo-web-app/publish
+        package: ./publish
 #
