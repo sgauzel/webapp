@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
 name: Publish
 
 on: 
@@ -6,7 +7,11 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-    
+
+env:
+  AZURE_WEBAPP_NAME: "devci-demo-webapp"
+
+   
 jobs:
   publish: 
     runs-on: ubuntu-latest
@@ -26,4 +31,13 @@ jobs:
       run: dotnet build ./demo-web-app/demo-web-app.sln --configuration Release --no-restore
       
     - name: Publish
-      run: dotnet publish ./demo-web-app/demo-web-app.sln --configuration Release --no-build    
+      run: dotnet publish ./demo-web-app/demo-web-app.sln --configuration Release --no-build
+      
+    # Deploy
+    - name: Deploy to azure
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: ${{ env.AZURE_WEBAPP_NAME }}
+        publish-profile: ${{ secrets.PUBLISH_SECRET }}
+        package: ./demo-web-app/publish
+#
