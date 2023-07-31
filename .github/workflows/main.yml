@@ -39,7 +39,7 @@ jobs:
       run: dotnet publish ./demo-web-app/demo-web-app.sln --configuration Release --no-build --output ./publish
       
     - name: Generate scripts
-      run: dotnet ef migrations script --project ./demo-web-app/demo-web-app.sln --output ./sql/sql-script.sql --idempotent --context AppDbContext
+      run: dotnet ef migrations script --project ./demo-web-app/demo-web-app.csproj --output ./sql/sql-script.sql --idempotent --context AppDbContext
       
     - name: Azure SQL Deploy
       uses: Azure/sql-action@v2.2
