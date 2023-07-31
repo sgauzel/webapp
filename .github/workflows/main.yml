@@ -30,16 +30,23 @@ jobs:
     - name: Build
       run: dotnet build ./demo-web-app/demo-web-app.sln --configuration Release --no-restore
       
+    - name: Install EF Tool
+      run: |
+          dotnet new tool-manifest
+          dotnet tool install dotnet-ef
+          
     - name: Publish
       run: dotnet publish ./demo-web-app/demo-web-app.sln --configuration Release --no-build --output ./publish
       
+    - name: Generate scripts
+      run: dotnet ef migrations script --output ./sql/sql-script.sql --idempotent --context AppDbContext
+      
     - name: Azure SQL Deploy
       uses: Azure/sql-action@v2.2
-      #with:
-        # The connection string, including authentication information, for the Azure SQL Server database.
-        #server-name: tcp:db-titan-demo.database.windows.net
-        #connection-string: db
-        #sql-file: file     
+      with:
+        server-name: tcp:db-titan-demo.database.windows.net
+        connection-string: ${{ secrets.CONNECTION_STRING }}
+        sql-file: ./sql/sql-script.sql     
       
     # Deploy
     - name: Deploy to azure
