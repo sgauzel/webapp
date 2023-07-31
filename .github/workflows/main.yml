@@ -33,6 +33,14 @@ jobs:
     - name: Publish
       run: dotnet publish ./demo-web-app/demo-web-app.sln --configuration Release --no-build --output ./publish
       
+    - name: Azure SQL Deploy
+      uses: Azure/sql-action@v2.2
+      #with:
+        # The connection string, including authentication information, for the Azure SQL Server database.
+        #server-name: tcp:db-titan-demo.database.windows.net
+        #connection-string: db
+        #sql-file: file     
+      
     # Deploy
     - name: Deploy to azure
       uses: azure/webapps-deploy@v2
