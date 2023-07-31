@@ -6,7 +6,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>demo_web_app</RootNamespace>
   </PropertyGroup>
-
+  <ItemGroup>
+    <Folder Include="Client\js\" />
+    <Folder Include="wwwroot\dist\" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.9">
       <PrivateAssets>all</PrivateAssets>
@@ -18,5 +21,8 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
-
+  <Target Name="BuildClientAssets" BeforeTargets="Publish">
+    <Exec Command="npm install" />
+    <Exec Command="npm run prod" />
+  </Target>
 </Project>

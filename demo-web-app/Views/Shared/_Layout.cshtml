@@ -35,7 +35,12 @@
             @RenderBody()
         </main>
     </div>
-
+<environment names="Development">
+    <script src="~/dist/main.js"></script>
+</environment>
+<environment names="Staging,Production">
+    <script src="~/dist/main.js" asp-append-version="true"></script>
+</environment>
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2023 - demo_web_app - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
