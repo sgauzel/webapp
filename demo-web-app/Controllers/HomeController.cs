@@ -1,4 +1,5 @@
-﻿using demo_web_app.Models;
+﻿using demo_web_app.AppContext;
+using demo_web_app.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -7,10 +8,11 @@ namespace demo_web_app.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly AppDbContext _dbContext;
+        public HomeController(ILogger<HomeController> logger, AppDbContext dbContext)
         {
             _logger = logger;
+            _dbContext = dbContext;
         }
 
         public IActionResult Index()
@@ -20,6 +22,9 @@ namespace demo_web_app.Controllers
 
         public IActionResult Privacy()
         {
+            var p = new Person() { Name = "Michecl" };
+            _dbContext.Add(p);
+            _dbContext.SaveChanges();
             return View();
         }
 
