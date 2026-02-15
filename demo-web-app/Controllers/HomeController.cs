@@ -23,8 +23,8 @@ namespace demo_web_app.Controllers
         public IActionResult Privacy()
         {
             var p = new Person() { Name = "Michecl" };
-            _dbContext.Add(p);
-            _dbContext.SaveChanges();
+            //_dbContext.Add(p);
+           // _dbContext.SaveChanges();
             return View();
         }
 
